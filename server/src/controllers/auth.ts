@@ -13,15 +13,15 @@ interface UserInterface {
   password: string;
 }
 
-const generateSecretKey = () => {
-  return crypto.randomBytes(32).toString('hex');
-};
+// const generateSecretKey = () => {
+//   return crypto.randomBytes(32).toString('hex');
+// };
 
-const generatedSecretKey = generateSecretKey();
+// const generatedSecretKey = generateSecretKey();
 
-const parsed = {SECRET_KEY: generatedSecretKey}
+// const parsed = {SECRET_KEY: 'verysecret'}
 
-dotenv.populate(process.env, parsed)
+// dotenv.populate(process.env, parsed)
 
 
 exports.register = async (
@@ -75,7 +75,8 @@ exports.login = async (
       throw error;
     }
 
-    console.log('Secret: ', process.env.SECRET_KEY,)
+    console.log('auth controler-- loadedUser: ', loadedUser)
+    console.log('auth controler-- loadedUser -- id: ', loadedUser._id.toString())
 
     const token = jwt.sign(
       { id: loadedUser._id.toString(), email: email, username: loadedUser.username },

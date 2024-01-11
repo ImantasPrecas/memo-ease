@@ -10,6 +10,7 @@ import validateEnv from '@utils/validateEnv'
 import User from './models/user';
 
 const authRoutes = require('@routes/auth')
+const notesRoutes = require('@routes/notes')
 
 interface UserInterface {
     username: string;
@@ -30,6 +31,7 @@ app.use(cors());
 app.use(express.json())
 
 
+app.use('/notes', notesRoutes)
 app.use('/', authRoutes)
 
 app.use((error: any, req, res: Response, next) => {

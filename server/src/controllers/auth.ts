@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken';
 import { validationResult } from 'express-validator';
 import { NextFunction, Request, Response } from 'express';
 const crypto = require('crypto');
+const dotenv = require('dotenv')
 
 import User from '../models/user';
 
@@ -16,7 +17,12 @@ const generateSecretKey = () => {
   return crypto.randomBytes(32).toString('hex');
 };
 
-const SECRET_KEY = generateSecretKey();
+const generatedSecretKey = generateSecretKey();
+
+const parsed = {SECRET_KEY: generatedSecretKey}
+
+dotenv.populate(process.env, parsed)
+
 
 exports.register = async (
   req: Request,
@@ -69,9 +75,11 @@ exports.login = async (
       throw error;
     }
 
+    console.log('Secret: ', process.env.SECRET_KEY,)
+
     const token = jwt.sign(
       { id: loadedUser._id.toString(), email: email, username: loadedUser.username },
-      SECRET_KEY,
+      process.env.SECRET_KEY,
       { expiresIn: '1h' }
     );
 
@@ -98,7 +106,7 @@ exports.getCurrentUser = async (
     throw error
   }
 
-  const decodedToken = jwt.decode(token, SECRET_KEY) as {id: string, email: string, username: string}
+  const decodedToken = jwt.decode(token, process.env.SECRET_KEY) as {id: string, email: string, username: string}
 
   res.status(200).json({
     data: {

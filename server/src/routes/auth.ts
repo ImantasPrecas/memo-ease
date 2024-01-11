@@ -26,4 +26,8 @@ router.post('/register',[
     .isEmpty()
 ], authControler.register)
 
+router.post('/login', authControler.login)
+
+router.get('/getCurrentUser', authControler.getCurrentUser)
+
 module.exports = router

@@ -28,8 +28,8 @@
       "@exceptions/*": ["exceptions/*"],
       "@interfaces/*": ["interfaces/*"],
       "@middlewares/*": ["middlewares/*"],
-      "@models/*": ["models/*"],
-      "@routers/*": ["routers/*"],
+      "@models/*": ["src/models/*"],
+      "@routes/*": ["routes/*"],
       "@services/*": ["services/*"],
       "@utils/*": ["utils/*"]
     }
